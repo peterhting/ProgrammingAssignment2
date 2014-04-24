@@ -63,24 +63,48 @@ testCache<-function(c=NULL) {
     ##create the list of functions set,get,setim and getim
     message("create list of functions")
     b<-makeCacheMatrix(c)
+    message("input matrix")
+    print(c)
     
     ##execute the cacheim the first time on object b
     ##should go ahead and compute the inverse matrix
     message("execute the first time")
-    cacheSolve(b)
+    d<-cacheSolve(b)
+    message("inverse matrix")
+    print(d)
     
     ##execute the cacheim the second time on object b
     ##should use the cached inverse matrix
     message("execute the second time")
-    cacheSolve(b)
+    d<-cacheSolve(b)
+    message("Cached inverse matrix")
+    print(d)
     
-    #creat a new object b
-    message("create a new list of functions")
-    b<-makeCacheMatrix(c)
+    ##Matrix %*% invMatrix = rbind(c(1,0),c(0,1)) or diagional matrix
+    message("matrix %*% invMatrix should produce a diagiona 1's matrix")
+    message("product matrix")
+    a<-c %*% d   
+    print(a)
+    
+    #creat a new object e
+    message("--------------------------------------")
+    e=rbind(c(1,4),c(-1,-3))
+    message("input matrix")
+    print(e)
+
+    message("create a new list of functions on a new matrix")
+    b<-makeCacheMatrix(e)
     
     ##execute the cacheim the first time on object b
     ##should go ahead and compute the inverse matrix
     message("execute first time on new object")
-    cacheSolve(b)
+    d=cacheSolve(b)
+    message("inverse matrix")
+    print(d)
+    
+    ##Matrix %*% invMatrix = rbind(c(1,0),c(0,1)) or diagional matrix
+    message("matrix %*% invMatrix should produce a diagiona 1's matrix")
+    message("product matrix")
+    e %*% d   
     
 }
